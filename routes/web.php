@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::resources([
+    'users' => UserController::class,
+    'posts' => PostController::class,
+    'replies' => ReplyController::class,
+]);
