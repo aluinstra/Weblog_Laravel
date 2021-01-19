@@ -15,7 +15,7 @@ class Reply extends Model
      */
     public function user()
     {
-        return $this->belongsto('App\Models\User');
+        return $this->belongsto(User::class);
     }
 
     public function post()

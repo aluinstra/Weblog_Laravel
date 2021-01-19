@@ -9,10 +9,19 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title', 'topic_id', 'active', 'content',
+    ];
+
     /**
      * Get replies belonging to weblog.
      *
      */
+    public function topic()
+    {
+        return $this->belongsto(Topic::class);
+    }
+
     public function replies()
     {
         return $this->hasMany('App\Models\Reply');
@@ -24,6 +33,6 @@ class Post extends Model
      */
     public function user()
     {
-        return $this->belongsto('App\Models\User');
+        return $this->belongsto(User::class);
     }
 }

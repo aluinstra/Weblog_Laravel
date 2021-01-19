@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ReplyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/posts/{topic}/topic', [PostController::class, 'topic'])->name('posts.topic');
+
 
 Route::resources([
     'users' => UserController::class,
     'posts' => PostController::class,
     'replies' => ReplyController::class,
 ]);
+
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__ . '/auth.php';

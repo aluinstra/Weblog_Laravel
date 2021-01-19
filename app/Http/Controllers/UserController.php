@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+
+
+
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -13,7 +17,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::get();
+
+        return view('user.index', compact('user'));
     }
 
     /**
@@ -23,7 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -34,7 +40,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        User::create(request()->validate([
+            'grocerie' => ['required', 'min:2'],
+            'price' => ['required', 'numeric', 'min:0'],
+            'quantity' => ['required', 'numeric', 'min:1']
+        ]));
+
+        return redirect()->route('post.index');
     }
 
     /**

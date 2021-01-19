@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
@@ -42,7 +42,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get weblogs assigned to user.
+     * Get posts assigned to user.
      *
      */
     public function posts()
@@ -51,7 +51,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get weblogs assigned to user.
+     * Get replies assigned to user.
      *
      */
     public function replies()

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\Reply;
+use App\Models\Topic;
+
 
 class PostController extends Controller
 {
@@ -13,7 +17,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::orderBy('created_at', 'DESC')->get();
+        $topics = Topic::get();
+
+        return view('posts.index', compact('posts', 'topics'));
     }
 
     /**
@@ -23,7 +30,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $topics = Topic::get();
+
+        // dd($topics);
+
+        return view('posts.create', compact('topics'));
     }
 
     /**
@@ -34,7 +45,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Post::create(request()->validate([
+            'name' => ['required', 'min:4'],
+            'email' =>  ['required', 'min:4'],
+            'password' => ['required', 'min:4'],
+        ]));
+
+        return redirect()->route('groceries.index');
     }
 
     /**
@@ -45,7 +62,12 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::find($id);
+        $replies = Reply::where('post_id', $id)->orderBy('created_at', 'ASC')->get();
+
+        // dd($replies);
+
+        return view('posts.show', compact('post', 'replies'));
     }
 
     /**
@@ -54,9 +76,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        $topics = Topic::get();
+
+        return view('posts.edit', compact('post', 'topics'));
     }
 
     /**
@@ -66,9 +90,17 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        // dd($request);
+        $post->update(request()->validate([
+            'topic_id' => ['required', 'numeric', 'min:0'],
+            'title' => ['required', 'min:2'],
+            'active' => ['required', 'boolean'],
+            'content' => ['required', 'min:2']
+        ]));
+
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -79,6 +111,19 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::destroy($id);
+        Reply::where('post_id', $id)->destroy();
+
+        return redirect('/');
+    }
+
+    public function topic(Topic $topic)
+    {
+        // dd($topic);
+
+        // $posts = Post::where($topic)->get();
+
+
+        return view('posts.index');
     }
 }
