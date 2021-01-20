@@ -16,7 +16,7 @@ use App\Http\Controllers\ReplyController;
 |
 */
 
-Route::get('/posts/{topic}/topic', [PostController::class, 'topic'])->name('posts.topic');
+Route::post('/posts/topic', [PostController::class, 'topic'])->name('posts.topic');
 
 
 Route::resources([

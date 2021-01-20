@@ -23,8 +23,8 @@
     </ul>
     <hr>
 
-    <form action="/posts/{topic}" method="GET">
-
+    <form action="/posts/topic" method="POST">
+        @csrf
         Choose Selection
         <select name="topic_id" id="topic">
             @foreach ($topics as $key => $topic)
@@ -34,7 +34,8 @@
 
         <div id="inputButton">
             <button type="submit">Submit</button>
-            <hr>
+        </div>
+        <hr>
     </form>
 
     @foreach ($posts as $key => $post)

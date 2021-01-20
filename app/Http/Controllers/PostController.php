@@ -117,13 +117,21 @@ class PostController extends Controller
         return redirect('/');
     }
 
-    public function topic(Topic $topic)
+    /**
+     * Show the posts by topic.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function topic(Request $request)
     {
+
+        $topic_id = $request->topic_id;
+        $posts = Post::where('topic_id', $topic_id)->get();
+        $topic = Topic::where('id', $topic_id)->first('topic');
+
         // dd($topic);
 
-        // $posts = Post::where($topic)->get();
-
-
-        return view('posts.index');
+        return view('posts.topic', compact('posts'), ["topic" => $topic]);
     }
 }
