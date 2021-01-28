@@ -29,7 +29,8 @@ class PostFactory extends Factory
             'content' => $this->faker->text($maxNbChars = 250),
             'topic_id' => Topic::all()->random(),
             'active' => 1,
-            'created_at' => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = '-1 month')
+            'created_at' => $this->faker->dateTimeBetween($startDate = '-1 years')
         ];
     }
 }
+// $endDate = '-1 month'

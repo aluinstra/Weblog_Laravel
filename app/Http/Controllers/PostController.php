@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WeeklyUpdate;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Reply;
 use App\Models\Topic;
-
+use App\Models\File;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -17,10 +19,12 @@ class PostController extends Controller
      */
     public function index()
     {
+        $imgs = File::all();
+        // dd($imgs);
         $posts = Post::orderBy('created_at', 'DESC')->get();
         $topics = Topic::get();
 
-        return view('posts.index', compact('posts', 'topics'));
+        return view('posts.index', compact('posts', 'imgs', 'topics'));
     }
 
     /**
@@ -130,8 +134,29 @@ class PostController extends Controller
         $posts = Post::where('topic_id', $topic_id)->get();
         $topic = Topic::where('id', $topic_id)->first('topic');
 
+        $imgs = File::all();
         // dd($topic);
 
-        return view('posts.topic', compact('posts'), ["topic" => $topic]);
+        return view('posts.topic', compact('posts', 'imgs'), ["topic" => $topic]);
+    }
+
+    /**
+     * Send last week messages to user email.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function emailUpdate(Request $request)
+    {
+        $myEmail = 'aatmaninfotech@gmail.com';
+
+        $details = [
+            'title' => 'Mail Demo from ItSolutionStuff.com',
+            'url' => 'https://www.itsolutionstuff.com'
+        ];
+
+        Mail::to($myEmail)->send(new WeeklyUpdate($details));
+
+        dd("Mail Send Successfully");
     }
 }

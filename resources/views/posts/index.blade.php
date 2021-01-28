@@ -13,43 +13,52 @@
 
 
     <div>
-        <div id='log_in'><a href={{$url=route("login")}}>log in</div>
-        <div id='new_user'><a href={{$url=route("users.create")}}>Create new user</div>
+        <div id='log_in'><a href={{route("login")}}>log in</div>
+        <div id='new_user'><a href={{route("users.create")}}>Create new user</div>
     </div>
 
     <ul>
-        <li><a href={{$url=route("posts.index")}}>Posts</a></li>
-        <li><a href={{$url=route("posts.create")}}>Toevoegen</a></li>
+        <li><a href={{route("posts.index")}}>Posts</a></li>
+        <li><a href={{route("posts.create")}}>Toevoegen</a></li>
+        <li><a href={{route("posts.weeklyUpdate")}}>Email</a></li>
+
     </ul>
     <hr>
 
-    <form action="/posts/topic" method="POST">
-        @csrf
-        Choose Selection
-        <select name="topic_id" id="topic">
-            @foreach ($topics as $key => $topic)
-            <option value="{{ $key+1 }}"> {{ $topic->topic }}</option>
-            @endforeach
-        </select>
 
-        <div id="inputButton">
-            <button type="submit">Submit</button>
+    Choose Selection
+    <select name="topic_id" id="topicSelect">
+        <option value="">Select option...</option>
+        @foreach ($topics as $key => $topic)
+        <option value="{{ $key+1 }}"> {{ $topic->topic }}</option>
+        @endforeach
+    </select>
+    <hr>
+
+    <div id='contentWrapper'>
+        @foreach ($posts as $key => $post)
+        <div id='titlebar'>
+            <div id='user'> {{ $post->user->name }} </div>
+            <div id='title'><a href={{route("posts.show", $post->id)}}> {{ $post->title }}</a></div>
+            <div id='creation_date'> {{ $post->created_at}}</div>
+            <div id='active'> {{ $post->active}}</div>
         </div>
-        <hr>
-    </form>
 
-    @foreach ($posts as $key => $post)
-    <div id='titlebar'>
-        <div id='user'> {{ $post->user->name }} </div>
-        <div id='title'><a href={{$url=route("posts.show", $post->id)}}> {{ $post->title }}</a></div>
-        <div id='creation_date'> {{ $post->created_at}}</div>
-        <div id='active'> {{ $post->active}}</div>
+        <div id='content'> {{$post->content}}</div>
+
+        @foreach ($imgs as $key => $img)
+        @if ($img->post_id == $post->id)
+        <img src="{{asset('storage/uploads/'.$img->name)}}">
+        @endif
+        @endforeach
+        <hr>
+        @endforeach
     </div>
 
-    <div id='content'> {{$post->content}}</div>
-    <hr>
-    @endforeach
+    <script src='/js/app.js'></script>
 
 </body>
 
 </html>
+
+<!-- https://www.positronx.io/laravel-file-upload-with-validation/ -->

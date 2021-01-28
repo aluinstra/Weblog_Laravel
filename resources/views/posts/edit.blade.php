@@ -20,7 +20,7 @@
         @method('PUT')
         <div id="user" name="name"> {{ $post->user->name }} </div>
 
-        <div id="current_topic" name="current_topic"> {{ $post->topic->topic }} </div>
+        <div id="current_topic" name="current_topic" onclick="showSelect()"> {{ $post->topic->topic }} </div>
 
         <select name="topic_id" id="topic" hidden>
             @foreach ($topics as $key => $topic)
@@ -41,8 +41,14 @@
         <hr>
 
         <div id="inputButton">
-            <button type="submit">button</button>
+            <button type="submit">Submit</button>
+        </div>
+
     </form>
+
+    <div id="uploadIMG">
+        <button type="button" onclick="window.location=' {{route("file-upload", $post->id)}}'">Upload IMG</button>
+    </div>
 
     <script src='/js/app.js'></script>
 

@@ -13,7 +13,7 @@
 
     <nav>
         <ul>
-            <li><a href={{$url=route("replies.show", $reply->id)}}>Go Back</a></li>
+            <li><a href={{route("replies.show", $reply->id)}}>Go Back</a></li>
         </ul>
     </nav>
 
@@ -26,10 +26,10 @@
 
         <input type="hidden" id="hidden-content-input" name="content" value="" />
         <div id="content" contenteditable="true"> {{ $reply->content }}</div>
-
         <hr>
+
         <div id="inputButton">
-            <button type="submit">button</button>
+            <button type="submit">Submit</button>
     </form>
 
     <script src='/js/app.js'></script>

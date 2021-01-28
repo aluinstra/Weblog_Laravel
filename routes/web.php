@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReplyController;
+use App\Http\Controllers\FileUploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,16 +17,19 @@ use App\Http\Controllers\ReplyController;
 |
 */
 
-Route::post('/posts/topic', [PostController::class, 'topic'])->name('posts.topic');
+Route::get('/posts/topic', [PostController::class, 'topic'])->name('posts.topic');
 
+Route::get('/upload-file/{postID}', [FileUploadController::class, 'createForm']);
+
+Route::post('/upload-file/{postID}', [FileUploadController::class, 'fileUpload'])->name('file-upload');
+
+Route::get('/weeklyUpdate', [PostController::class, 'emailUpdate'])->name('posts.weeklyUpdate');
 
 Route::resources([
     'users' => UserController::class,
     'posts' => PostController::class,
     'replies' => ReplyController::class,
 ]);
-
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');
