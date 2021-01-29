@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
@@ -34,5 +35,7 @@ Route::resources([
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+// Route::delete('/logout/{}', [AuthenticatedSessionController::class, 'destroy'])->name('auth.destroy');
 
 require __DIR__ . '/auth.php';

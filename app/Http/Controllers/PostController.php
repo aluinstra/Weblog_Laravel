@@ -9,6 +9,8 @@ use App\Models\Reply;
 use App\Models\Topic;
 use App\Models\File;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
+
 
 class PostController extends Controller
 {
@@ -55,7 +57,7 @@ class PostController extends Controller
             'password' => ['required', 'min:4'],
         ]));
 
-        return redirect()->route('groceries.index');
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -150,13 +152,21 @@ class PostController extends Controller
     {
         $myEmail = 'aatmaninfotech@gmail.com';
 
+        $lastWeekPosts = Post::whereBetween('created_at', [
+            Carbon::parse('last monday')->startOfDay(),
+            Carbon::parse('next friday')->endOfDay(),
+        ])->get();
+
+        // dd($lastWeekPosts);
+
         $details = [
-            'title' => 'Mail Demo from ItSolutionStuff.com',
-            'url' => 'https://www.itsolutionstuff.com'
+            'title' => 'Last Week Posts',
+            'lastWeekPosts' => $lastWeekPosts
         ];
 
         Mail::to($myEmail)->send(new WeeklyUpdate($details));
 
-        dd("Mail Send Successfully");
+        // dd("Mail Send Successfully");
+        return redirect('post.index');
     }
 }

@@ -17,11 +17,17 @@
         <div id='new_user'><a href={{route("users.create")}}>Create new user</div>
     </div>
 
+    <form action="{{route('logout')}}" method="POST">
+        @csrf
+        <div id=inputButton>
+            <button type="submit">logout</button>
+        </div>
+    </form>
+
     <ul>
         <li><a href={{route("posts.index")}}>Posts</a></li>
         <li><a href={{route("posts.create")}}>Toevoegen</a></li>
         <li><a href={{route("posts.weeklyUpdate")}}>Email</a></li>
-
     </ul>
     <hr>
 

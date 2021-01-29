@@ -47,7 +47,7 @@
     </form>
 
     <div id="uploadIMG">
-        <button type="button" onclick="window.location=' {{route("file-upload", $post->id)}}'">Upload IMG</button>
+        <button type="button" onclick="window.location='{{route("file-upload", $post->id)}}'">Upload IMG</button>
     </div>
 
     <script src='/js/app.js'></script>
