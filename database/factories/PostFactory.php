@@ -27,6 +27,7 @@ class PostFactory extends Factory
             // 'user_id' => User::factory(), // maakt voor elke post een user_id
             'title' => $this->faker->regexify('[A-Za-z0-9]{20}'),
             'content' => $this->faker->text($maxNbChars = 250),
+            'premium_content' => $this->faker->boolean(),
             'topic_id' => Topic::all()->random(),
             'active' => 1,
             'created_at' => $this->faker->dateTimeBetween($startDate = '-1 years')

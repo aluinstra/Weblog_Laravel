@@ -12,7 +12,7 @@
     <h1>Users: Create User</h1>
 
     <ul>
-        <li><a href={{$url=route("posts.index")}}>Posts</a></li>
+        <li><a href={{route("posts.index")}}>Posts</a></li>
     </ul>
 
     <form action="/users" method="POST">

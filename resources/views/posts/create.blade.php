@@ -13,16 +13,20 @@
 
     <nav>
         <ul>
-            <li><a href={{$url=route("posts.index")}}>Posts</a></li>
+            <li><a href={{route("posts.index")}}>Posts</a></li>
         </ul>
     </nav>
+
+    @foreach ($errors->all() as $error)
+    {{$error}}
+    @endforeach
 
     <form action="/posts" method="POST">
         @csrf
         Topic
-        <select name="topic" id="topic" value="{{ old('topic')}}">
+        <select name="topic_id" id="topic">
             @foreach($topics as $topic)
-            <option value="{{ $topic->topic }}">{{ $topic->topic }}</option>
+            <option value="{{ $topic->id }}">{{ $topic->topic }}</option>
             @endforeach
         </select>
         @if ($errors->has('topic'))
@@ -40,8 +44,11 @@
         @if ($errors->has('content'))
         <div class="error">{{ $errors->first('content') }}</div>
         @endif
+        <br>
+        <input type="checkbox" id="premium_content" name="premium_content" value=1>
+        <label for="premium_content">I want this to be premium content.</label><br><br>
         <div id=inputButton>
-            <button type="submit">button</button>
+            <button type="submit">submit</button>
         </div>
     </form>
 

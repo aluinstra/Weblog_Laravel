@@ -14,7 +14,7 @@
     @foreach ($replies as $key => $reply)
     <div id='titlebar'>
         <div id='user'> {{ $reply->user->name }} </div>
-        <div id='title'><a href={{$url=route("replies.show", $reply->id)}}> {{ $reply->post->title }} </a></div>
+        <div id='title'><a href={{route("replies.show", $reply->id)}}> {{ $reply->post->title }} </a></div>
         <div id='creation_date'> {{ $reply->created_at}}</div>
     </div>
 

@@ -12,20 +12,20 @@
     <h1>Replies: Create Reply</h1>
 
     <ul>
-        <li><a href={{$url=route("replies.index")}}>Posts</a></li>
-        <li><a href={{$url=route("replies.create")}}>Toevoegen</a></li>
+        <li><a href={{route("replies.index")}}>Replies</a></li>
+        <li><a href={{route("replies.create")}}>Toevoegen</a></li>
     </ul>
 
     <form action="/replies" method="POST">
         @csrf
 
         Content
-        <textarea name="message" rows="10" cols="30" name="content" value="{{ old('content')}}">Please type here..</textarea>
+        <textarea rows="10" cols="30" name="content" value="{{ old('content')}}" placeholder="Please enter your text here.."></textarea>
         @if ($errors->has('post'))
         <div class="error">{{ $errors->first('post') }}</div>
         @endif
         <div id=inputButton>
-            <button type="submit">button</button>
+            <button type="submit">submit</button>
         </div>
     </form>
 

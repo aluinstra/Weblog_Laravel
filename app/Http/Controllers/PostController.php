@@ -10,7 +10,7 @@ use App\Models\Topic;
 use App\Models\File;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -21,12 +21,21 @@ class PostController extends Controller
      */
     public function index()
     {
-        $imgs = File::all();
-        // dd($imgs);
-        $posts = Post::orderBy('created_at', 'DESC')->get();
-        $topics = Topic::get();
+        // dd(Auth::user());
 
-        return view('posts.index', compact('posts', 'imgs', 'topics'));
+        if (Auth::user() != null) {
+            $imgs = File::all();
+            // dd($imgs);
+            $posts = Post::orderBy('created_at', 'DESC')->get();
+            $topics = Topic::get();
+
+            return view('posts.index', compact('posts', 'imgs', 'topics'));
+        } else {
+            $imgs = File::all();
+            $posts = Post::where('premium_content', '=', 0)->orderBy('created_at', 'DESC')->get();
+
+            return view('posts.index', compact('posts', 'imgs'));
+        }
     }
 
     /**
@@ -51,11 +60,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        Post::create(request()->validate([
-            'name' => ['required', 'min:4'],
-            'email' =>  ['required', 'min:4'],
-            'password' => ['required', 'min:4'],
-        ]));
+        // dd($request);
+        $validated = request()->validate([
+            'topic_id' => ['required'],
+            'title' => ['required', 'min:3'],
+            'content' => ['required', 'min:10'],
+            'premium_content' => ['required' => false]
+        ]);
+
+        $validated['user_id'] = Auth::user()->id;
+
+        // dd($validated);
+        Post::create($validated);
 
         return redirect()->route('posts.index');
     }
@@ -98,7 +114,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        // dd($request);
+        dd($post->id);
         $post->update(request()->validate([
             'topic_id' => ['required', 'numeric', 'min:0'],
             'title' => ['required', 'min:2'],

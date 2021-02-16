@@ -12,7 +12,7 @@
     <h1>Posts: Edit Post</h1>
 
     <ul>
-        <li><a href={{$url=route("posts.show", $post->id)}}>Show Post</a></li>
+        <li><a href={{route("posts.show", $post->id)}}>Show Post</a></li>
     </ul>
 
     <form action="/posts/{{$post->id}}" method="POST" onsubmit="return SubmitForm(['title', 'active', 'content'])">

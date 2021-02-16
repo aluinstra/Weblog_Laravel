@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
@@ -25,6 +24,10 @@ Route::get('/upload-file/{postID}', [FileUploadController::class, 'createForm'])
 Route::post('/upload-file/{postID}', [FileUploadController::class, 'fileUpload'])->name('file-upload');
 
 Route::get('/weeklyUpdate', [PostController::class, 'emailUpdate'])->name('posts.weeklyUpdate');
+
+Route::get('/subscribe/{user}', [UserController::class, 'subscribe'])->name('users.subscribe');
+
+Route::post('/checkout/{user}', [UserController::class, 'checkout'])->name('users.checkout');
 
 Route::resources([
     'users' => UserController::class,

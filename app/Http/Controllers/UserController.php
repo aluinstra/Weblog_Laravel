@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Post;
+
 
 
 
@@ -40,13 +43,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        User::create(request()->validate([
-            'grocerie' => ['required', 'min:2'],
-            'price' => ['required', 'numeric', 'min:0'],
-            'quantity' => ['required', 'numeric', 'min:1']
-        ]));
+        // dd($request->password);
 
-        return redirect()->route('post.index');
+        $validated = request()->validate([
+            'name' => ['required', 'min:4'],
+            'email' =>  ['required', 'min:4'],
+        ]);
+
+        $validated['password'] = Hash::make($request->password);
+
+        User::create($validated);
+
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -92,5 +100,35 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Show the form for subscribing of premium content.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function subscribe($user)
+    {
+        // dd($user);
+        return view('users.subscribe', compact('user'));
+    }
+
+    /**
+     * Show the checkout page to confirm payment of premium content.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function checkout(Request $request, User $user)
+    {
+
+        // dd($user);
+        // dd($request->premium_content);
+        $user->update(request()->validate([
+            'premium_content' => 'required'
+        ]));
+
+
+        return view('users.checkout');
     }
 }

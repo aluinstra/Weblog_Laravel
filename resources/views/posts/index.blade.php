@@ -12,11 +12,8 @@
     <h1>Posts Index</h1>
 
 
-    <div>
-        <div id='log_in'><a href={{route("login")}}>log in</div>
-        <div id='new_user'><a href={{route("users.create")}}>Create new user</div>
-    </div>
 
+    @auth
     <form action="{{route('logout')}}" method="POST">
         @csrf
         <div id=inputButton>
@@ -24,14 +21,22 @@
         </div>
     </form>
 
+    <div id='subscripe'><a href={{route("users.subscribe", $user = Auth::user())}}>Subscribe</div>
+    @else
+    <div>
+        <div id='new_user'><a href={{route("users.create")}}>Create new user</div>
+        <div id='log_in'><a href={{route("login")}}>log in</div>
+
+    </div>
+    @endauth
+
     <ul>
-        <li><a href={{route("posts.index")}}>Posts</a></li>
         <li><a href={{route("posts.create")}}>Toevoegen</a></li>
         <li><a href={{route("posts.weeklyUpdate")}}>Email</a></li>
     </ul>
     <hr>
 
-
+    @auth
     Choose Selection
     <select name="topic_id" id="topicSelect">
         <option value="">Select option...</option>
@@ -40,6 +45,13 @@
         @endforeach
     </select>
     <hr>
+    @else
+    Choose selection
+    <select name="topic_id" id="topicSelect">
+        <option value="">Available for premium Users</option>
+    </select>
+    <hr>
+    @endauth
 
     <div id='contentWrapper'>
         @foreach ($posts as $key => $post)
@@ -47,7 +59,8 @@
             <div id='user'> {{ $post->user->name }} </div>
             <div id='title'><a href={{route("posts.show", $post->id)}}> {{ $post->title }}</a></div>
             <div id='creation_date'> {{ $post->created_at}}</div>
-            <div id='active'> {{ $post->active}}</div>
+            <div id='active'> Active: {{ $post->active}}</div>
+            <div id='premium_content'>Premium {{ $post->premium_content}}</div>
         </div>
 
         <div id='content'> {{$post->content}}</div>

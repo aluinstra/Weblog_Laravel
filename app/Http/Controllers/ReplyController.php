@@ -73,7 +73,7 @@ class ReplyController extends Controller
      */
     public function update(Request $request, Reply $reply)
     {
-        // dd($reply->content);
+        dd($reply->content);
         // dd($request);
 
         $reply->update(request()->validate([

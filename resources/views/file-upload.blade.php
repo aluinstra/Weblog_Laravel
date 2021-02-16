@@ -27,6 +27,10 @@
 
 <body>
 
+    <ul>
+        <li style="text-align : center"><a href={{route("posts.index")}}>Posts</a></li>
+    </ul>
+
     <div class="container mt-5">
         <form action="{{route('file-upload', $postID)}}" method="post" enctype="multipart/form-data">
             <h3 class="text-center mb-5">Upload File in Laravel</h3>

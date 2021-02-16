@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->integer('topic_id');
             $table->longtext('content');
+            $table->boolean('premium_content')->default(0);
             $table->boolean('active')->default(1);
             $table->timestamps();
         });

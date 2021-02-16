@@ -12,7 +12,7 @@
     <h1>Replies: Show Reply</h1>
 
     <ul>
-        <li><a href={{$url=route("posts.show", $reply->post->id)}}>Go back</a></li>
+        <li><a href={{route("posts.show", $reply->post->id)}}>Go back</a></li>
     </ul>
 
     <div id='titlebar'>
