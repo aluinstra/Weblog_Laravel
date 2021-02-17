@@ -11,6 +11,7 @@
 
     <h1>Replies Index</h1>
 
+
     @foreach ($replies as $key => $reply)
     <div id='titlebar'>
         <div id='user'> {{ $reply->user->name }} </div>
