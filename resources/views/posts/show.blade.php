@@ -55,8 +55,7 @@
     <hr>
     @endforeach
 
-    <form action="{{ route('replies.create', ['post' => $post->id]) }}" method='GET'>
-        @csrf
+    <form action="{{ route('post.reply', ['post' => $post->id]) }}" method='GET'>
         Reply
         <button class="btn" type='submit' data-toggle="buttons">Reply &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
     </form>

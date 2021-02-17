@@ -20,6 +20,7 @@
         @csrf
 
         Content
+        <input type='hidden' name='post_id' value={{$post}}>
         <textarea rows="10" cols="30" name="content" value="{{ old('content')}}" placeholder="Please enter your text here.."></textarea>
         @if ($errors->has('post'))
         <div class="error">{{ $errors->first('post') }}</div>

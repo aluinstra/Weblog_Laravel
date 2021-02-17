@@ -35,6 +35,8 @@ Route::resources([
     'replies' => ReplyController::class,
 ]);
 
+Route::get('/postreply/{post}', [ReplyController::class, 'create'])->name('post.reply');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

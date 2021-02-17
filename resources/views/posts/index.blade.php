@@ -12,7 +12,6 @@
     <h1>Posts Index</h1>
 
 
-
     @auth
     <form action="{{route('logout')}}" method="POST">
         @csrf
@@ -21,7 +20,9 @@
         </div>
     </form>
 
-    <div id='subscripe'><a href={{route("users.subscribe", $user = Auth::user())}}>Subscribe</div>
+
+    <div id='replies'><a href={{route("replies.index")}}>Replies</a></div>
+    <div id='subscribe'><a href={{route("users.subscribe", $user = Auth::user())}}>Subscribe</div>
     @else
     <div>
         <div id='new_user'><a href={{route("users.create")}}>Create new user</div>
@@ -30,11 +31,13 @@
     </div>
     @endauth
 
+
     <ul>
         <li><a href={{route("posts.create")}}>Toevoegen</a></li>
         <li><a href={{route("posts.weeklyUpdate")}}>Email</a></li>
     </ul>
     <hr>
+
 
     @auth
     Choose Selection
@@ -52,6 +55,7 @@
     </select>
     <hr>
     @endauth
+
 
     <div id='contentWrapper'>
         @foreach ($posts as $key => $post)

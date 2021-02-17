@@ -9,6 +9,10 @@ class Reply extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id', 'post_id', 'content',
+    ];
+
     /**
      * Get the user that belongs to the reply.
      *

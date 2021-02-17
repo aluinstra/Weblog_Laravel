@@ -133,10 +133,11 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
+        // dd($id);
+        Reply::where('post_id', $id)->delete();
         Post::destroy($id);
-        Reply::where('post_id', $id)->destroy();
 
-        return redirect('/');
+        return redirect()->route('posts.index');
     }
 
     /**

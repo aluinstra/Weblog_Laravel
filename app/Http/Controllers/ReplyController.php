@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Reply;
+use App\Models\Post;
+
+use Illuminate\Support\Facades\Auth;
+
 
 class ReplyController extends Controller
 {
@@ -24,9 +28,9 @@ class ReplyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($post)
     {
-        return view('replies.create');
+        return view('replies.create', compact('post'));
     }
 
     /**
@@ -37,7 +41,19 @@ class ReplyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+
+        $validated = request()->validate([
+            'content' => ['required', 'min:10'],
+            'post_id' => ['required']
+        ]);
+
+        $validated['user_id'] = Auth::user()->id;
+
+        // dd($validated);
+        Reply::create($validated);
+
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -49,6 +65,7 @@ class ReplyController extends Controller
     public function show($id)
     {
         $reply = Reply::find($id);
+        // dd($reply);
 
         return view('replies.show', compact('reply'));
     }
@@ -73,7 +90,7 @@ class ReplyController extends Controller
      */
     public function update(Request $request, Reply $reply)
     {
-        dd($reply->content);
+        // dd($reply->content);
         // dd($request);
 
         $reply->update(request()->validate([
@@ -91,8 +108,9 @@ class ReplyController extends Controller
      */
     public function destroy($id)
     {
+        // dd($id);
         Reply::destroy($id);
 
-        return redirect('/');
+        return redirect()->route('replies.index');
     }
 }
