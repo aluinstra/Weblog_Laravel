@@ -21,6 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
+        // TODO: verwijder ongebruikte comments
         // dd(Auth::user());
 
         if (Auth::user() != null) {
@@ -61,6 +62,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        // TODO: maak form request validator (zie laravel doc)
         $validated = request()->validate([
             'topic_id' => ['required'],
             'title' => ['required', 'min:3'],
@@ -84,6 +86,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
+        // TODO: pas route model binding toe
         $post = Post::find($id);
         $replies = Reply::where('post_id', $id)->orderBy('created_at', 'ASC')->get();
 
@@ -114,6 +117,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        // TODO: code stopt na dd, fixen
         dd($post->id);
         $post->update(request()->validate([
             'topic_id' => ['required', 'numeric', 'min:0'],
@@ -133,6 +137,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
+        // TODO: pas route model binding toe
         // dd($id);
         Reply::where('post_id', $id)->delete();
         Post::destroy($id);
@@ -146,6 +151,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     // TODO: kies altijd duidelijke method name, dus bijv. postsByTopic. Maar in dit geval is een geneste resource controller nog beter,
+     // zie voor meer info: https://laraveldaily.com/nested-resource-controllers-and-routes-laravel-crud-example/
     public function topic(Request $request)
     {
 
@@ -167,6 +175,7 @@ class PostController extends Controller
      */
     public function emailUpdate(Request $request)
     {
+        // TODO: gebruik ipv hard coded adres het emailadres van de ingelogde gebruiker
         $myEmail = 'aatmaninfotech@gmail.com';
 
         $lastWeekPosts = Post::whereBetween('created_at', [

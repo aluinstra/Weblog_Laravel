@@ -43,6 +43,7 @@ class ReplyController extends Controller
     {
         // dd($request);
 
+        // TODO: voeg form validator toe
         $validated = request()->validate([
             'content' => ['required', 'min:10'],
             'post_id' => ['required']
@@ -64,6 +65,7 @@ class ReplyController extends Controller
      */
     public function show($id)
     {
+        // TODO: pas route model binding toe
         $reply = Reply::find($id);
         // dd($reply);
 
