@@ -17,7 +17,7 @@ class TopicController extends Controller
     {
         $topics = Topic::get();
 
-        view('index.blade.php', compact('topics'));
+        return view('index.blade.php', compact('topics'));
     }
 
     /**

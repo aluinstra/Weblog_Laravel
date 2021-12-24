@@ -37,7 +37,7 @@
         <div style="display:inline-block;">
             <form action="{{ route('posts.edit', ['post' => $post->id]) }}" method='GET'>
                 @csrf
-                <button class="btn" type='submit' data-toggle="buttons">Change &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                <button class="btn" id="add_ingredient" type='submit' data-toggle="buttons">Change &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
             </form>
         </div>
     </div>
