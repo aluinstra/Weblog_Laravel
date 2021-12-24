@@ -44,6 +44,7 @@
     <select name="topic_id" id="topicSelect">
         <option value="">Select option...</option>
         @foreach ($topics as $key => $topic)
+        {{-- gebruik hier geen key maar $topic->id om te voorkomen dat er errors / inconsistencies ontstaan --}}
         <option value="{{ $key+1 }}"> {{ $topic->topic }}</option>
         @endforeach
     </select>

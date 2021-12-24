@@ -44,3 +44,5 @@ Route::get('/dashboard', function () {
 // Route::delete('/logout/{}', [AuthenticatedSessionController::class, 'destroy'])->name('auth.destroy');
 
 require __DIR__ . '/auth.php';
+
+// TOTO: voeg redirect route voor / toe
